@@ -63,7 +63,7 @@ body {
 
 @font-face {
     font-family: calcFont;
-    src: url(Digital\ Dismay.otf);
+    src: url(digital-counter-7.italic.ttf);
 
 }
 
@@ -80,6 +80,6 @@ body {
     background-color: #515151;
     color: blanchedalmond;
     font-size: 60px;
-    font-family: calcFont;
+    font-family: Arial, Helvetica, sans-serif;
     padding: 15px;
 }
