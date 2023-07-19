@@ -4,7 +4,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), linear-gradient(90deg, rgb(154, 32, 25), rgb(227, 175, 26));
+    background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px,
+            transparent 2px, transparent 4px),
+        linear-gradient(90deg, rgb(154, 32, 25), rgb(227, 175, 26));
+}
+
+#zero {
+    transition: margin-top 0.2s ease;
 }
 
 #firstRow,
@@ -24,8 +30,8 @@ body {
 
 .button {
     display: flex;
-    width: 70px;
-    height: 60px;
+    width: 90px;
+    height: 80px;
     border: solid 1px black;
     box-sizing: border-box;
     justify-content: center;
@@ -56,9 +62,10 @@ body {
 }
 
 #firstRow div {
-    width: 142px;
+    width: 182px;
     margin: 1px;
     background-color: #626262;
+    border-radius: 8px;
 }
 
 @font-face {
@@ -69,17 +76,16 @@ body {
 
 #display {
     display: flex;
-    /* word-wrap: break-word;
-    word-break: break-all; */
+
     overflow: hidden;
-    height: 120px;
-    width: 286px;
+    height: 150px;
+    width: 366px;
     border: 1px solid black;
     box-sizing: border-box;
     justify-content: left;
     align-items: center;
     margin-bottom: 1px;
-    border-radius: 4px;
+    border-radius: 15px;
     background-color: #515151;
     color: blanchedalmond;
     font-size: 60px;

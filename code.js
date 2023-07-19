@@ -1,72 +1,105 @@
 let result = 0;
 let display = document.getElementById('display');
-display.textContent = ''
+
 let dot = document.getElementById('dot')
 dot.addEventListener('click', function () {
     if (display.textContent === '') {
         return;
     }
-
-    display.textContent += '.';
+    if (display.textContent.includes('.')) return;
+    dot.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        dot.style.backgroundColor = '';
+    }, 200); display.textContent += '.';
 })
 
 let zero = document.getElementById('zero');
-zero.addEventListener('click', function () {
-
-    display.textContent += 0
+zero.addEventListener('mousedown', function () {
+    zero.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        zero.style.backgroundColor = '';
+    }, 200);
+    display.textContent += 0;
 })
 
 let one = document.getElementById('one');
 one.addEventListener('click', function () {
-
+    one.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        one.style.backgroundColor = '';
+    }, 200);
     display.textContent += 1
 })
 
 let two = document.getElementById('two');
 two.addEventListener('click', function () {
-
+    two.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        two.style.backgroundColor = '';
+    }, 200);
     display.textContent += 2
 })
 
 let three = document.getElementById('three');
 three.addEventListener('click', function () {
-
+    three.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        three.style.backgroundColor = '';
+    }, 200);
     display.textContent += 3
 })
 
 let four = document.getElementById('four');
 four.addEventListener('click', function () {
-
+    four.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        four.style.backgroundColor = '';
+    }, 200);
     display.textContent += 4
 })
 
 let five = document.getElementById('five');
 five.addEventListener('click', function () {
-
+    five.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        five.style.backgroundColor = '';
+    }, 200);
     display.textContent += 5
 })
 
 let six = document.getElementById('six');
 six.addEventListener('click', function () {
-
+    six.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        six.style.backgroundColor = '';
+    }, 200);
     display.textContent += 6
 })
 
 let seven = document.getElementById('seven');
 seven.addEventListener('click', function () {
-
+    seven.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        seven.style.backgroundColor = '';
+    }, 200);
     display.textContent += 7
 })
 
 let eight = document.getElementById('eight');
 eight.addEventListener('click', function () {
-
+    eight.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        eight.style.backgroundColor = '';
+    }, 200);
     display.textContent += 8
 })
 
 let nine = document.getElementById('nine');
 nine.addEventListener('click', function () {
-
+    nine.style.backgroundColor = '#E36E00'
+    setTimeout(function () {
+        nine.style.backgroundColor = '';
+    }, 200);
     display.textContent += 9
 })
 
@@ -81,11 +114,15 @@ function appendPlus() {
         return;
     }
     if (splitedAdd.length === 2) {
-        equalFunc()
+        equalFunc();
     }
     if (display.textContent === '') {
         return;
     }
+    add.style.backgroundColor = '#7D8288'
+    setTimeout(function () {
+        add.style.backgroundColor = '';
+    }, 200);
     display.textContent += '+';
 }
 
@@ -98,11 +135,15 @@ function appendMinus() {
         return;
     }
     if (splitedAdd.length === 2) {
-        equalFunc()
+        equalFunc();
     }
     if (display.textContent === '') {
         return;
     }
+    subs.style.backgroundColor = '#7D8288'
+    setTimeout(function () {
+        subs.style.backgroundColor = '';
+    }, 200);
     display.textContent += '-';
 }
 
@@ -115,11 +156,15 @@ function appendDiv() {
         return;
     }
     if (splitedDiv.length === 2) {
-        equalFunc()
+        equalFunc();
     }
     if (display.textContent === '') {
         return;
     }
+    division.style.backgroundColor = '#7D8288'
+    setTimeout(function () {
+        division.style.backgroundColor = '';
+    }, 200);
     display.textContent += '/';
 }
 
@@ -132,11 +177,15 @@ function appendMulti() {
         return;
     }
     if (splitedMulti.length === 2) {
-        equalFunc()
+        equalFunc();
     }
     if (display.textContent === '') {
         return;
     }
+    multi.style.backgroundColor = '#7D8288'
+    setTimeout(function () {
+        multi.style.backgroundColor = '';
+    }, 200);
     display.textContent += '*';
 }
 
@@ -151,6 +200,10 @@ function equalFunc() {
     let splitedSubs = [];
     let splitedDiv = [];
     let splitedMulti = [];
+    if (display.textContent.slice(-1) === '+' || display.textContent.slice(-1) === '-' ||
+        display.textContent.slice(-1) === '/' || display.textContent.slice(-1) === '*') {
+        return;
+    }
     if (display.textContent.includes('+')) {
         splitedAdd = display.textContent.split('+');
     }
@@ -246,11 +299,17 @@ function clearFunc() {
 }
 function addFunc(parsedAdd) {
     result = parsedAdd[0] + parsedAdd[1];
+    if (!Number.isInteger(result)) {
+        result = result.toFixed(6);
+    }
     display.textContent = result;
 };
 
 function subsFunc(parsedNumbers) {
     result = parsedNumbers[0] - parsedNumbers[1];
+    if (!Number.isInteger(result)) {
+        result = result.toFixed(6);
+    }
     display.textContent = result;
 };
 
@@ -264,7 +323,11 @@ function divFunc(parsedDiv) {
 
 function multiFunc(parsedMulti) {
     result = parsedMulti[0] * parsedMulti[1];
+    if (!Number.isInteger(result)) {
+        result = result.toFixed(6);
+    }
     display.textContent = result;
 };
 
 // Solucionar spliteAdd muchas veces
+// Revisar problema cuando se combinan operaciones no se ejecuta equal. Ejempplo 3*3+ el ultimo mas no deberia ocurrir
