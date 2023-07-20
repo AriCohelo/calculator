@@ -10,110 +10,37 @@ dot.addEventListener('click', function () {
     dot.style.backgroundColor = '#E36E00'
     setTimeout(function () {
         dot.style.backgroundColor = '';
-    }, 200); display.textContent += '.';
+    }, 200);
+    display.textContent += '.';
 })
 
-let zero = document.getElementById('zero');
-zero.addEventListener('mousedown', function () {
-    zero.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        zero.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 0;
-})
 
-let one = document.getElementById('one');
-one.addEventListener('click', function () {
-    one.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        one.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 1
-})
-
-let two = document.getElementById('two');
-two.addEventListener('click', function () {
-    two.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        two.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 2
-})
-
-let three = document.getElementById('three');
-three.addEventListener('click', function () {
-    three.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        three.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 3
-})
-
-let four = document.getElementById('four');
-four.addEventListener('click', function () {
-    four.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        four.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 4
-})
-
-let five = document.getElementById('five');
-five.addEventListener('click', function () {
-    five.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        five.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 5
-})
-
-let six = document.getElementById('six');
-six.addEventListener('click', function () {
-    six.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        six.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 6
-})
-
-let seven = document.getElementById('seven');
-seven.addEventListener('click', function () {
-    seven.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        seven.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 7
-})
-
-let eight = document.getElementById('eight');
-eight.addEventListener('click', function () {
-    eight.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        eight.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 8
-})
-
-let nine = document.getElementById('nine');
-nine.addEventListener('click', function () {
-    nine.style.backgroundColor = '#E36E00'
-    setTimeout(function () {
-        nine.style.backgroundColor = '';
-    }, 200);
-    display.textContent += 9
-})
+const numberButtons = document.querySelectorAll('.numberButton');
+numberButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        button.style.backgroundColor = '#E36E00';
+        setTimeout(function () {
+            button.style.backgroundColor = '';
+        }, 200);
+        display.textContent += button.textContent;
+    });
+});
 
 // Operator Buttons
 
 let add = document.getElementById('add');
 add.addEventListener('click', appendPlus);
 function appendPlus() {
-    let splitedAdd = display.textContent.split('+');
-    if (display.textContent.slice(-1) === '+' || display.textContent.slice(-1) === '-' ||
-        display.textContent.slice(-1) === '/' || display.textContent.slice(-1) === '*') {
+    let splitedAppendAdd = display.textContent.split('+');
+    let splitedSubs = display.textContent.split('-');
+    let splitedDiv = display.textContent.split('/');
+    let splitedMulti = display.textContent.split('*');
+    let lastChar = display.textContent.slice(-1);
+    if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
         return;
     }
-    if (splitedAdd.length === 2) {
+    if (splitedMulti.length === 2 || splitedAppendAdd.length === 2 ||
+        splitedDiv.length === 2 || splitedSubs.length === 2) {
         equalFunc();
     }
     if (display.textContent === '') {
@@ -129,15 +56,19 @@ function appendPlus() {
 let subs = document.getElementById('subs');
 subs.addEventListener('click', appendMinus);
 function appendMinus() {
-    let splitedAdd = display.textContent.split('-');
-    if (display.textContent.slice(-1) === '+' || display.textContent.slice(-1) === '-' ||
-        display.textContent.slice(-1) === '/' || display.textContent.slice(-1) === '*') {
+    let splitedAdd = display.textContent.split('+');
+    let splitedSubs = display.textContent.split('-');
+    let splitedDiv = display.textContent.split('/');
+    let splitedMulti = display.textContent.split('*');
+    let lastChar = display.textContent.slice(-1);
+    if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
         return;
     }
-    if (splitedAdd.length === 2) {
+    if (splitedMulti.length === 2 || splitedAdd.length === 2 ||
+        splitedDiv.length === 2 || splitedSubs.length === 2) {
         equalFunc();
     }
-    if (display.textContent === '') {
+    if (display.textContent === '-') {
         return;
     }
     subs.style.backgroundColor = '#7D8288'
@@ -150,12 +81,16 @@ function appendMinus() {
 let division = document.getElementById('division');
 division.addEventListener('click', appendDiv);
 function appendDiv() {
+    let splitedAdd = display.textContent.split('+');
+    let splitedSubs = display.textContent.split('-');
     let splitedDiv = display.textContent.split('/');
-    if (display.textContent.slice(-1) === '+' || display.textContent.slice(-1) === '-' ||
-        display.textContent.slice(-1) === '/' || display.textContent.slice(-1) === '*') {
+    let splitedMulti = display.textContent.split('*');
+    let lastChar = display.textContent.slice(-1);
+    if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
         return;
     }
-    if (splitedDiv.length === 2) {
+    if (splitedMulti.length === 2 || splitedAdd.length === 2 ||
+        splitedDiv.length === 2 || splitedSubs.length === 2) {
         equalFunc();
     }
     if (display.textContent === '') {
@@ -171,12 +106,16 @@ function appendDiv() {
 let multi = document.getElementById('multi');
 multi.addEventListener('click', appendMulti)
 function appendMulti() {
+    let splitedAdd = display.textContent.split('+');
+    let splitedSubs = display.textContent.split('-');
+    let splitedDiv = display.textContent.split('/');
     let splitedMulti = display.textContent.split('*');
-    if (display.textContent.slice(-1) === '+' || display.textContent.slice(-1) === '-' ||
-        display.textContent.slice(-1) === '/' || display.textContent.slice(-1) === '*') {
+    let lastChar = display.textContent.slice(-1);
+    if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
         return;
     }
-    if (splitedMulti.length === 2) {
+    if (splitedMulti.length === 2 || splitedAdd.length === 2 ||
+        splitedDiv.length === 2 || splitedSubs.length === 2) {
         equalFunc();
     }
     if (display.textContent === '') {
@@ -281,6 +220,7 @@ function equalFunc() {
     if (display.textContent.includes('*')) {
         multiFunc(parsedMulti)
     }
+
 }
 
 let backspace = document.getElementById('backspace');
@@ -329,5 +269,3 @@ function multiFunc(parsedMulti) {
     display.textContent = result;
 };
 
-// Solucionar spliteAdd muchas veces
-// Revisar problema cuando se combinan operaciones no se ejecuta equal. Ejempplo 3*3+ el ultimo mas no deberia ocurrir
