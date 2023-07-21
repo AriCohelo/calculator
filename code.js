@@ -77,6 +77,7 @@ function equalFunc() {
     if (display.textContent.includes('*')) {
         splited = display.textContent.split('*');
     }
+    console.log(splited)
     //Parse
     if (Number.isInteger(Number(splited[0]))) {
         parsed.push(parseInt(splited[0]))
@@ -89,7 +90,6 @@ function equalFunc() {
         parsed.push(parseFloat(splited[1]))
     }
     //Call Function
-    console.log(parsed)
     if (display.textContent.includes('+')) {
         addFunc(parsed)
     }
@@ -131,7 +131,6 @@ function subsFunc(parsed) {
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
-    console.log(result)
     display.textContent = result;
 };
 
