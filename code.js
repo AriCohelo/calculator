@@ -1,3 +1,9 @@
+let operand1 = 0;
+let operand2 = 0;
+let addSymbol = 0;
+let subSymbol = 0;
+let divSymbol = 0;
+let multiSymbol = 0;
 let result = 0;
 let display = document.getElementById('display');
 
@@ -24,7 +30,6 @@ numberButtons.forEach(button => {
         display.textContent += button.textContent;
     });
 });
-
 let operatorButtons = document.querySelectorAll('.operatorButton');
 operatorButtons.forEach(button => {
     button.addEventListener('click', function () {
@@ -40,8 +45,19 @@ operatorButtons.forEach(button => {
         setTimeout(function () {
             button.style.backgroundColor = '';
         }, 200);
+        if (addSymbol === 1 || subSymbol === 1 || divSymbol === 1 || multiSymbol === 1) {
+            equalFunc();
+            return;
+        }
         if (button.textContent != '=') {
-            display.textContent += button.textContent;
+            operand1 = parseInt(display.textContent);
+            if (button.textContent === '+') { addSymbol++ }
+            if (button.textContent === '-') { subSymbol++ }
+            if (button.textContent === '/') { divSymbol++ }
+            if (button.textContent === '*') { multiSymbol++ }
+            display.textContent = '';
+
+            console.log('operand1 ' + operand1);
         }
     })
 })
@@ -51,20 +67,28 @@ let equal = document.getElementById('equal');
 equal.addEventListener('click', equalFunc)
 function equalFunc() {
 
-    console.log('parsed ' + parsed)
+    operand2 = parseInt(display.textContent);
+    display.textContent = '';
+    console.log('operand2 ' + operand2);
 
-    if (display.textContent.includes('+')) {
-        addFunc(parsed)
+    if (addSymbol === 1) {
+        addFunc(operand1, operand2);
     }
-    if (display.textContent.includes('-')) {
-        subsFunc(parsed)
+    if (subSymbol === 1) {
+        subsFunc(operand1, operand2);
     }
-    if (display.textContent.includes('/')) {
-        divFunc(parsed)
+    if (divSymbol === 1) {
+        divFunc(operand1, operand2);
     }
-    if (display.textContent.includes('*')) {
-        multiFunc(parsed)
+    if (multiSymbol === 1) {
+        multiFunc(operand1, operand2);
     }
+    operand1 = 0;
+    operand2 = 0;
+    addSymbol = 0;
+    subSymbol = 0;
+    divSymbol = 0;
+    multiSymbol = 0;
 }
 
 let backspace = document.getElementById('backspace');
@@ -80,8 +104,8 @@ function clearFunc() {
     result = 0;
 }
 
-function addFunc(parsed) {
-    result = parsed.reduce((a, b) => a + b)
+function addFunc(op1, op2) {
+    result = op1 + op2;
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
@@ -89,8 +113,8 @@ function addFunc(parsed) {
     display.textContent = result;
 };
 
-function subsFunc(parsed) {
-    result = parsed.reduce((a, b) => a - b)
+function subsFunc(op1, op2) {
+    result = op1 - op2;
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
@@ -98,8 +122,8 @@ function subsFunc(parsed) {
     display.textContent = result;
 };
 
-function divFunc(parsed) {
-    result = parsed[0] / parsed[1];
+function divFunc(op1, op2) {
+    result = op1 / op2;
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
@@ -107,8 +131,8 @@ function divFunc(parsed) {
     display.textContent = result;
 };
 
-function multiFunc(parsed) {
-    result = parsed[0] * parsed[1];
+function multiFunc(op1, op2) {
+    result = op1 * op2;
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
