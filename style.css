@@ -26,7 +26,8 @@ body {
 
 .numberButton,
 .button,
-.operatorButton {
+.operatorButton,
+#equal {
     display: flex;
     width: 90px;
     height: 80px;
@@ -41,7 +42,6 @@ body {
     background-color: #7D8288;
 
 }
-
 
 .operatorButton {
     background-color: #E36E00;

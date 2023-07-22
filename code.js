@@ -24,27 +24,24 @@ numberButtons.forEach(button => {
         display.textContent += button.textContent;
     });
 });
-// Operator Buttons
+
 let operatorButtons = document.querySelectorAll('.operatorButton');
 operatorButtons.forEach(button => {
     button.addEventListener('click', function () {
-
-        let verifyLengthAdd = display.textContent.split('+');
-        let verifyLengthSubs = display.textContent.split('-');
-        let verifyLengthDiv = display.textContent.split('/');
-        let verifyLengthMulti = display.textContent.split('*');
         let lastChar = display.textContent.slice(-1);
         if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
             return;
         }
-        if (verifyLengthMulti.length === 2 || verifyLengthAdd.length === 2 ||
-            verifyLengthDiv.length === 2 || verifyLengthSubs.length === 2) {
+
+        const displayArray = display.textContent.match(/-?\d+/g).map(numero => parseInt(numero, 10));
+        console.log(displayArray);
+        if (displayArray.length === 2) {
+            console.log('displayArray ' + displayArray)
             equalFunc();
         }
         if (display.textContent === '') {
             return;
         }
-
         button.style.backgroundColor = '#7D8288'
         setTimeout(function () {
             button.style.backgroundColor = '';
@@ -55,41 +52,32 @@ operatorButtons.forEach(button => {
     })
 })
 
+
 let equal = document.getElementById('equal');
 equal.addEventListener('click', equalFunc)
 function equalFunc() {
-    let splited = [];
     let parsed = [];
+    let splited = [];
+    operators = ['+', '-', '/', '*']
     let lastChar = display.textContent.slice(-1);
     if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
         return;
     }
-    //Split 
-    if (display.textContent.includes('+')) {
-        splited = display.textContent.split('+');
+    function split(string) {
+        for (let i = 0; i < operators.length; i++) {
+            if (string.includes(operators[i])) {
+                splited = string.split(operators[i])
+            }
+        }
     }
-    if (display.textContent.includes('-')) {
-        splited = display.textContent.split('-');
-    }
-    if (display.textContent.includes('/')) {
-        splited = display.textContent.split('/');
-    }
-    if (display.textContent.includes('*')) {
-        splited = display.textContent.split('*');
-    }
-    console.log(splited)
-    //Parse
-    if (Number.isInteger(Number(splited[0]))) {
-        parsed.push(parseInt(splited[0]))
-    } else {
-        parsed.push(parseFloat(splited[0]))
-    }
-    if (Number.isInteger(Number(splited[1]))) {
-        parsed.push(parseInt(splited[1]))
-    } else {
-        parsed.push(parseFloat(splited[1]))
-    }
-    //Call Function
+    split(display.textContent);
+
+    parsed.push(Number(splited[0]));
+    parsed.push(Number(splited[1]));
+
+    // parsed = display.textContent.match(/-?\d+/g).map(numero => parseInt(numero, 10));
+    console.log('parsed ' + parsed)
+
     if (display.textContent.includes('+')) {
         addFunc(parsed)
     }
@@ -102,7 +90,6 @@ function equalFunc() {
     if (display.textContent.includes('*')) {
         multiFunc(parsed)
     }
-
 }
 
 let backspace = document.getElementById('backspace');
@@ -119,18 +106,20 @@ function clearFunc() {
 }
 
 function addFunc(parsed) {
-    result = parsed[0] + parsed[1];
+    result = parsed.reduce((a, b) => a + b)
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
+    console.log('result ' + result);
     display.textContent = result;
 };
 
 function subsFunc(parsed) {
-    result = parsed[0] - parsed[1];
+    result = parsed.reduce((a, b) => a - b)
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
+    console.log('result ' + result);
     display.textContent = result;
 };
 
@@ -139,6 +128,7 @@ function divFunc(parsed) {
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
+    console.log('result ' + result);
     display.textContent = result;
 };
 
@@ -147,6 +137,9 @@ function multiFunc(parsed) {
     if (!Number.isInteger(result)) {
         result = result.toFixed(6);
     }
+    console.log('result ' + result);
     display.textContent = result;
 };
 
+
+(+3) - (-6)
