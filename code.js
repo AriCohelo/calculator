@@ -33,12 +33,6 @@ operatorButtons.forEach(button => {
             return;
         }
 
-        const displayArray = display.textContent.match(/-?\d+/g).map(numero => parseInt(numero, 10));
-        console.log(displayArray);
-        if (displayArray.length === 2) {
-            console.log('displayArray ' + displayArray)
-            equalFunc();
-        }
         if (display.textContent === '') {
             return;
         }
@@ -56,26 +50,7 @@ operatorButtons.forEach(button => {
 let equal = document.getElementById('equal');
 equal.addEventListener('click', equalFunc)
 function equalFunc() {
-    let parsed = [];
-    let splited = [];
-    operators = ['+', '-', '/', '*']
-    let lastChar = display.textContent.slice(-1);
-    if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
-        return;
-    }
-    function split(string) {
-        for (let i = 0; i < operators.length; i++) {
-            if (string.includes(operators[i])) {
-                splited = string.split(operators[i])
-            }
-        }
-    }
-    split(display.textContent);
 
-    parsed.push(Number(splited[0]));
-    parsed.push(Number(splited[1]));
-
-    // parsed = display.textContent.match(/-?\d+/g).map(numero => parseInt(numero, 10));
     console.log('parsed ' + parsed)
 
     if (display.textContent.includes('+')) {
@@ -141,4 +116,3 @@ function multiFunc(parsed) {
     display.textContent = result;
 };
 
-// cambios de prueba en alt1 para ser fundidos en main
