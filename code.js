@@ -1,11 +1,9 @@
-let operand1 = 0;
-let operand2 = 0;
-let addSymbol = 0;
-let subSymbol = 0;
-let divSymbol = 0;
-let multiSymbol = 0;
-let result = 0;
+let operand1 = undefined;
+let operand2 = undefined;
+let result = undefined;
+
 let display = document.getElementById('display');
+let secondDisplay = document.getElementById('secondDisplay');
 
 let dot = document.getElementById('dot')
 dot.addEventListener('click', function () {
@@ -37,7 +35,6 @@ operatorButtons.forEach(button => {
         if (lastChar === '+' || lastChar === '-' || lastChar === '/' || lastChar === '*') {
             return;
         }
-
         if (display.textContent === '') {
             return;
         }
@@ -45,17 +42,33 @@ operatorButtons.forEach(button => {
         setTimeout(function () {
             button.style.backgroundColor = '';
         }, 200);
-        if (addSymbol === 1 || subSymbol === 1 || divSymbol === 1 || multiSymbol === 1) {
-            equalFunc();
-            return;
-        }
         if (button.textContent != '=') {
-            operand1 = parseInt(display.textContent);
-            if (button.textContent === '+') { addSymbol++ }
-            if (button.textContent === '-') { subSymbol++ }
-            if (button.textContent === '/') { divSymbol++ }
-            if (button.textContent === '*') { multiSymbol++ }
+
+
+
+            //Esta linea no funciona porque esta queriendo comprobar el estado de secondDisplay antes de que se ejecute equalFunc()
+            //Equal func es quien actualiza secondDisplay entonces no se puede comprobar el ultimo estado de secondDisply desde  aqui
+
+            if (secondDisplay.textContent.slice(-1) === '=') {
+                console.log('aca toy')
+            }
+
+
+
+
+
+            if (secondDisplay.textContent.slice(-1) === '+' && display.textContent != '') {
+                equalFunc();
+                return;
+            }
+            if (Number.isInteger(Number(display.textContent))) {
+
+                operand1 = parseInt(display.textContent);
+            } else {
+                operand1 = parseFloat(display.textContent);
+            }
             display.textContent = '';
+            secondDisplay.textContent = operand1 + button.textContent;
 
             console.log('operand1 ' + operand1);
         }
@@ -69,26 +82,23 @@ function equalFunc() {
 
     operand2 = parseInt(display.textContent);
     display.textContent = '';
+    secondDisplay.textContent += operand2 + '=';
     console.log('operand2 ' + operand2);
 
-    if (addSymbol === 1) {
+    if (secondDisplay.textContent.includes('+')) {
         addFunc(operand1, operand2);
     }
-    if (subSymbol === 1) {
+    if (secondDisplay.textContent.includes('-')) {
         subsFunc(operand1, operand2);
     }
-    if (divSymbol === 1) {
+    if (secondDisplay.textContent.includes('/')) {
         divFunc(operand1, operand2);
     }
-    if (multiSymbol === 1) {
+    if (secondDisplay.textContent.includes('*')) {
         multiFunc(operand1, operand2);
     }
-    operand1 = 0;
-    operand2 = 0;
-    addSymbol = 0;
-    subSymbol = 0;
-    divSymbol = 0;
-    multiSymbol = 0;
+    operand1 = undefined;
+    operand2 = undefined;
 }
 
 let backspace = document.getElementById('backspace');
@@ -101,7 +111,8 @@ let clear = document.getElementById('clear');
 clear.addEventListener('click', clearFunc)
 function clearFunc() {
     display.textContent = '';
-    result = 0;
+    secondDisplay.textContent = '';
+    result = undefined;
 }
 
 function addFunc(op1, op2) {

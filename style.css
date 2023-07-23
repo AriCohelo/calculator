@@ -54,7 +54,8 @@ body {
     border-radius: 8px;
 }
 
-#display {
+#display,
+#secondDisplay {
     display: flex;
     overflow: hidden;
     height: 150px;
